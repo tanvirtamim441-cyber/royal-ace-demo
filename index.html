@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#101018"><title>Royal Ace — Slot Demo</title>
+<style>
+:root{--gold:#f6c65b;--gold2:#ffe7a3;--bg:#0b0b12;--panel:#171722;--muted:#a8a8b8;--red:#d83b4b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#343047 0,#101018 42%,#09090e 100%);color:#fff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+header{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-bottom:1px solid #ffffff16;position:sticky;top:0;background:#101018eF;backdrop-filter:blur(12px);z-index:5}
+.brand{font-weight:900;letter-spacing:1.5px;color:var(--gold);font-size:18px}.brand small{display:block;font-size:9px;letter-spacing:3px;color:#aaa;text-align:center}
+button{border:0;border-radius:12px;padding:12px 15px;font-weight:800;cursor:pointer;color:#17120a;background:linear-gradient(135deg,var(--gold2),#d99b31);box-shadow:0 4px 15px #0006}
+button.secondary{background:#292938;color:#fff;border:1px solid #ffffff18;box-shadow:none}button:disabled{opacity:.45}
+.wrap{max-width:760px;margin:auto;padding:16px}.topline{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:10px 0 16px}.wallet{background:#201e2a;border:1px solid #f6c65b55;border-radius:14px;padding:10px 14px;color:var(--gold);font-weight:900}
+.panel{background:linear-gradient(160deg,#211f2d,#14141e);border:1px solid #ffffff18;border-radius:20px;padding:16px;box-shadow:0 15px 35px #0005;margin-bottom:14px}
+h1{font-size:22px;margin:0;color:var(--gold2)}.sub{color:var(--muted);font-size:12px;margin-top:4px}
+.machine{margin-top:15px;padding:14px;border-radius:18px;background:linear-gradient(145deg,#7d1c2a,#260d18 55%,#110b13);border:3px solid #d99d3b;box-shadow:inset 0 0 0 2px #ffdc8255,0 12px 30px #0008}
+.machine-title{text-align:center;font-weight:1000;letter-spacing:3px;color:#ffe6a0;text-shadow:0 2px 5px #000;font-size:20px}
+.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0;background:#100d13;padding:9px;border-radius:12px;border:2px solid #f3c45b}
+.reel{height:94px;display:grid;place-items:center;background:linear-gradient(#fff,#e9e3d5);border-radius:8px;color:#111;font-size:45px;text-shadow:0 2px 0 #fff;box-shadow:inset 0 0 12px #0003}
+.reel.spinning{animation:pulse .12s infinite alternate}
+@keyframes pulse{to{filter:blur(2px);transform:scale(.97)}}
+.machine-foot{display:flex;justify-content:space-between;color:#ffe4a1;font-size:12px;font-weight:800}
+.controls{display:flex;gap:10px;margin-top:14px}.controls button{flex:1;font-size:15px}.spin{font-size:18px!important;padding:15px!important}
+.notice{font-size:12px;color:#d4d1dc;line-height:1.5;margin-top:10px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:#11111a;border-radius:13px;padding:12px}.stat b{display:block;color:var(--gold);font-size:19px}.stat span{font-size:11px;color:var(--muted)}
+.tabs{display:flex;gap:8px;margin:14px 0;overflow:auto}.tabs button{white-space:nowrap;padding:9px 12px;font-size:12px}
+.list{font-size:13px;color:#ddd}.list div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #ffffff12}
+input{width:100%;padding:13px;border-radius:10px;border:1px solid #ffffff25;background:#0e0e16;color:white;margin:6px 0 12px;font-size:15px}
+label{font-size:12px;color:#bbb}.hidden{display:none!important}.center{text-align:center}.gold{color:var(--gold)}.small{font-size:11px;color:#999}
+footer{text-align:center;color:#777;font-size:10px;padding:15px}
+@media(max-width:420px){.wrap{padding:11px}.reel{height:82px;font-size:39px}.panel{padding:13px}}
+</style></head>
+<body>
+<header><div class="brand">ROYAL ACE<small>ARCADE CLUB</small></div><div id="userArea"><button class="secondary" onclick="showAuth()">Sign in</button></div></header>
+<div class="wrap">
+<section id="auth" class="panel hidden">
+<h1>Welcome to Royal Ace</h1><p class="sub">Create a local demo profile or sign in.</p>
+<label>Username</label><input id="username" placeholder="Enter username" maxlength="18">
+<label>Password</label><input id="password" type="password" placeholder="At least 4 characters">
+<div class="controls"><button onclick="register()">Create account</button><button class="secondary" onclick="login()">Sign in</button></div>
+<p class="small">Demo only: accounts are stored in this browser on this device.</p>
+</section>
+<section class="topline"><div><div class="sub">PLAYER</div><b id="playerName">Guest Player</b></div><div class="wallet">🪙 <span id="coins">1000</span> COINS</div></section>
+<section class="panel">
+<div class="center"><h1>SUPER ACE STYLE</h1><div class="sub">Original arcade slot • Virtual coins only</div></div>
+<div class="machine"><div class="machine-title">♠ ROYAL ACE ♠</div>
+<div class="reels"><div class="reel" id="r0">🍒</div><div class="reel" id="r1">7️⃣</div><div class="reel" id="r2">💎</div></div>
+<div class="machine-foot"><span>BET: <span id="betLabel">10</span></span><span id="result">GOOD LUCK!</span></div>
+</div>
+<div class="controls"><button class="secondary" onclick="changeBet(-10)">− BET</button><button class="secondary" onclick="changeBet(10)">+ BET</button></div>
+<div class="controls"><button class="spin" id="spinBtn" onclick="spin()">SPIN</button></div>
+<p class="notice">Three matching symbols award virtual coins. Two matching symbols return a small bonus. No cash value, deposits, withdrawals or prizes.</p>
+</section>
+<section class="grid">
+<div class="stat"><b id="spins">0</b><span>TOTAL SPINS</span></div><div class="stat"><b id="wins">0</b><span>WINNING SPINS</span></div>
+</section>
+<div class="tabs"><button onclick="tab('history')">Game History</button><button onclick="tab('bonus')">Daily Bonus</button><button onclick="tab('leader')">Leaderboard</button><button onclick="tab('admin')">Admin Demo</button></div>
+<section id="history" class="panel"><h1>Recent Games</h1><div class="list" id="historyList"><div><span>No games yet</span><span>—</span></div></div></section>
+<section id="bonus" class="panel hidden"><h1>Daily Bonus</h1><p class="sub">Collect 100 free virtual coins once per day.</p><button id="bonusBtn" onclick="dailyBonus()">Collect 100 coins</button></section>
+<section id="leader" class="panel hidden"><h1>Leaderboard</h1><div class="list" id="leaderList"></div></section>
+<section id="admin" class="panel hidden"><h1>Admin Demo</h1><p class="sub">Local prototype controls. Sign in with the demo admin account.</p><div id="adminLocked">Admin access required.</div><div id="adminTools" class="hidden"><label>Player username</label><input id="targetUser" placeholder="Username"><label>Coins to add (virtual only)</label><input id="coinAmount" type="number" min="1" value="100"><button onclick="addCoins()">Add virtual coins</button><div class="list" id="adminUsers"></div></div></section>
+</div><footer>ROYAL ACE DEMO • Virtual entertainment only • Not affiliated with JILI</footer>
+<script>
+const KEY='royalAceDemoV1';let data=JSON.parse(localStorage.getItem(KEY)||'null')||{users:{},current:null,history:[],lastBonus:{}};
+let bet=10,spinning=false;
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function current(){return data.current?data.users[data.current]:null}
+function ensureAdmin(){if(!data.users.admin)data.users.admin={name:'admin',pass:'admin1234',coins:5000,spins:0,wins:0,admin:true}}
+ensureAdmin();save();
+function showAuth(){document.getElementById('auth').classList.toggle('hidden')}
+function register(){let n=username.value.trim().toLowerCase(),p=password.value;if(n.length<3||p.length<4)return alert('Username must be 3+ characters and password 4+ characters.');if(data.users[n])return alert('Username already exists.');data.users[n]={name:n,pass:p,coins:1000,spins:0,wins:0};data.current=n;save();auth.classList.add('hidden')}
+function login(){let n=username.value.trim().toLowerCase(),p=password.value;if(!data.users[n]||data.users[n].pass!==p)return alert('Incorrect username or password.');data.current=n;save();auth.classList.add('hidden')}
+function logout(){data.current=null;save()}
+function changeBet(v){bet=Math.max(10,Math.min(100,bet+v));betLabel.textContent=bet}
+const symbols=['🍒','🍋','🍇','🔔','⭐','💎','7️⃣','♠️'];
+function spin(){let u=current();if(!u)return showAuth();if(spinning)return;if(u.coins<bet)return alert('Not enough virtual coins.');spinning=true;spinBtn.disabled=true;u.coins-=bet;let els=[r0,r1,r2];els.forEach(e=>e.classList.add('spinning'));let ticks=0;let timer=setInterval(()=>{els.forEach(e=>e.textContent=symbols[Math.floor(Math.random()*symbols.length)]);if(++ticks>12){clearInterval(timer);let result=Array.from({length:3},()=>symbols[Math.floor(Math.random()*symbols.length)]);els.forEach((e,i)=>{e.textContent=result[i];e.classList.remove('spinning')});let matches=result[0]===result[1]&&result[1]===result[2],pair=result[0]===result[1]||result[1]===result[2]||result[0]===result[2];let payout=matches?bet*8:pair?bet*2:0;u.coins+=payout;u.spins++;if(payout)u.wins++;data.history.unshift({name:u.name,items:result.join(' '),bet,payout,time:new Date().toLocaleString()});data.history=data.history.slice(0,20);resultEl.textContent=matches?'JACKPOT +'+payout:pair?'PAIR +'+payout:payout?'WIN +'+payout:'TRY AGAIN';spinning=false;spinBtn.disabled=false;save() }},75)}
+function dailyBonus(){let u=current();if(!u)return showAuth();let today=new Date().toDateString();if(data.lastBonus[u.name]===today)return alert('Daily bonus already collected.');data.lastBonus[u.name]=today;u.coins+=100;save();alert('100 virtual coins added!')}
+function tab(id){['history','bonus','leader','admin'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id))}
+function addCoins(){let n=targetUser.value.trim().toLowerCase(),a=Math.floor(Number(coinAmount.value));if(!data.users[n]||!Number.isFinite(a)||a<1)return alert('Check username and amount.');data.users[n].coins+=a;save();alert('Virtual coins added.')}
+function render(){let u=current();coins.textContent=u?u.coins:1000;playerName.textContent=u?u.name:'Guest Player';userArea.innerHTML=u?`<button class="secondary" onclick="logout()">Sign out</button>`:`<button class="secondary" onclick="showAuth()">Sign in</button>`;spins.textContent=u?u.spins:0;wins.textContent=u?u.wins:0;historyList.innerHTML=data.history.length?data.history.slice(0,8).map(h=>`<div><span>${h.name} · ${h.items}</span><b class="gold">${h.payout?'+':''}${h.payout}</b></div>`).join(''):'<div><span>No games yet</span><span>—</span></div>';leaderList.innerHTML=Object.values(data.users).sort((a,b)=>b.coins-a.coins).slice(0,8).map((x,i)=>`<div><span>${i+1}. ${x.name}</span><b>${x.coins} 🪙</b></div>`).join('');let isAdmin=u&&u.admin;adminLocked.classList.toggle('hidden',!!isAdmin);adminTools.classList.toggle('hidden',!isAdmin);adminUsers.innerHTML=isAdmin?Object.values(data.users).map(x=>`<div><span>${x.name}${x.admin?' (admin)':''}</span><b>${x.coins} 🪙</b></div>`).join(''):'';let today=new Date().toDateString();bonusBtn.disabled=!u||data.lastBonus[u.name]===today;bonusBtn.textContent=!u?'Sign in to collect':bonusBtn.disabled?'Collected today':'Collect 100 coins'}
+const resultEl=document.getElementById('result');render();
+</script></body></html>
